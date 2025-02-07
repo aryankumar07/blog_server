@@ -5,7 +5,7 @@ export const getPosts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1
     const limit = parseInt(req.query.limit) || 2
-    const posts = await Post.find().limit(limit).skip((page - 1) * limit)
+    const posts = await Post.find().limit(limit).skip((page - 1) * limit).populate("user", "username")
     const totalPosts = await Post.countDocuments()
     const hasMore = page * limit < totalPosts
     return res.status(200).json({ posts, hasMore })
@@ -21,7 +21,7 @@ export const getSinglePost = async (req, res) => {
     const slug = req.params.slug
     const post = await Post.findOne({
       slug: slug
-    })
+    }).populate("user", "username img")
     return res.status(200).json(post)
   } catch (e) {
     console.log(`[error in single Post], ${e.message}`)

@@ -25,6 +25,9 @@ app.use(function(req, res, next) {
 });
 
 
+app.get('/', (req, res) => {
+  res.send("You have Stumbled upon the server for blogs")
+})
 
 app.get('/auth-state', async (req, res) => {
   const authState = req.auth

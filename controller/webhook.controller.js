@@ -2,6 +2,9 @@ import User from "../model/user.model.js";
 import Post from "../model/post.model.js";
 import Comment from "../model/comment.model.js";
 import { Webhook } from "svix";
+
+
+
 export const clerkWebhook = async (req, res) => {
   const webhook_secret = process.env.WEBHOOK_SECRET
   if (!webhook_secret) {
