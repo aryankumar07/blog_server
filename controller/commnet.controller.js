@@ -15,7 +15,8 @@ export const getAllComments = async (req, res, next) => {
 export const addComment = async (req, res, next) => {
   try {
     const id = req.id
-    const { desc, postId } = req.body;
+    const { desc } = req.body;
+    const postId = req.params.postId
     const comment = new commentModel({
       user: id,
       post: postId,
@@ -29,9 +30,13 @@ export const addComment = async (req, res, next) => {
 }
 
 
-export const deleteComment = (req, res, next) => {
+export const deleteComment = async (req, res, next) => {
   try {
-    return res.send("Working")
+    const id = req.id
+    const { cid } = req.body
+    const postId = req.params.postId
+    const result = await commentModel.findOneAndDelete({ user: id, _id: cid, post: postId })
+    return res.status(200).json(result)
   } catch (e) {
     console.log(e)
   }

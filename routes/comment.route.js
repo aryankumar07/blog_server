@@ -12,7 +12,7 @@ router.get('/:postId', getAllComments)
 router.post("/:postId", requireAuth(), Auth, addComment)
 
 // delete routes
-router.delete("/:postId", deleteComment)
+router.post("/delete/:postId", requireAuth(), Auth, deleteComment)
 
 
 export default router;

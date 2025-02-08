@@ -1,5 +1,4 @@
 import User from "../model/user.model.js"
-import { clerkClient, getAuth } from '@clerk/express'
 
 
 const Auth = async (req, res, next) => {

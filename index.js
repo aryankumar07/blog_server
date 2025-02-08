@@ -6,12 +6,13 @@ import commentRoute from './routes/comment.route.js'
 import webhookRoute from './routes/webHooks.route.js'
 import connectToDb from './utils/connectdb.js'
 import cors from 'cors'
-
+import { clerkMiddleware } from "@clerk/express";
 
 const app = express()
 
 //general middleware
 app.use(cors())
+app.use(clerkMiddleware());
 app.use('/webhooks', webhookRoute)
 app.use(express.json())
 app.use(function(req, res, next) {
