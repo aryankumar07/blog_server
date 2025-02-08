@@ -9,20 +9,18 @@ import cors from 'cors'
 
 
 const app = express()
-app.use('/webhooks', webhookRoute)
 
 //general middleware
-app.use(express.json())
 app.use(cors())
-
-
-
+app.use('/webhooks', webhookRoute)
+app.use(express.json())
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
 
 
 app.get('/', (req, res) => {
@@ -38,7 +36,7 @@ app.get('/auth-state', async (req, res) => {
 // routes
 app.use('/user', userRoute)
 app.use('/posts', postRoute)
-app.use('/comment', commentRoute)
+app.use('/comments', commentRoute)
 
 
 app.listen(3000, () => {

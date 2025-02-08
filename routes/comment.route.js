@@ -1,5 +1,18 @@
 import express from 'express'
+import { getAllComments, addComment, deleteComment } from '../controller/commnet.controller.js'
+import { requireAuth } from '@clerk/express'
+import Auth from '../middlewares/auth.js'
 const router = express.Router()
 
-export default router;
+// get routes
+router.get('/:postId', getAllComments)
 
+
+// post routes
+router.post("/:postId", requireAuth(), Auth, addComment)
+
+// delete routes
+router.delete("/:postId", deleteComment)
+
+
+export default router;

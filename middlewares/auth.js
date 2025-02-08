@@ -12,7 +12,6 @@ const Auth = async (req, res, next) => {
     }
 
     const user = await User.findOne({ clerkUserId })
-
     if (!user) {
       return res.status(400).json({
         msg: 'No User found'
