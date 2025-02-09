@@ -64,6 +64,50 @@ export const deletePost = async (req, res) => {
 }
 
 
+
+export const featurePost = async (req, res, next) => {
+  try {
+    const query = Post.find()
+
+    const postIdArray = await Post.find()
+
+    const posts = await query.where({ isFeatured: true })
+
+    posts.map(async (post) => {
+      await Post.findByIdAndUpdate(post._id, { isFeatured: false })
+    })
+
+    const Postlength = await Post.countDocuments()
+
+    Array.from({ length: 4 }).map(async (_) => {
+      const index = Math.round(Math.random() * Postlength)
+      await Post.findByIdAndUpdate(postIdArray[index]._id, { isFeatured: true })
+    })
+
+    return res.status(200).json({
+      msg: "updated post"
+    })
+  } catch (e) {
+    console.log(`[Feature post], ${e}`)
+  }
+}
+
+
+
+export const getFeaturedPost = async (req, res, next) => {
+  try {
+    const posts = await Post.find().where({ isFeatured: true })
+    return res.status(200).json(posts)
+  } catch (e) {
+    console.log(`[getFeatured Post], ${e}`)
+  }
+}
+
+
+
+
+
+
 export const uploadAuth = async (req, res) => {
   var result = imagekit.getAuthenticationParameters();
   res.send(result);
